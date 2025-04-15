@@ -1,0 +1,23 @@
+/* Input */
+
+.input {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background-color: var(--card-bg);
+    color: var(--text);
+    font-size: 0.95rem;
+    transition: border-color 0.2s ease;
+  }
+  
+  .input:focus {
+    outline: none;
+    border-color: var(--button-bg);
+  }
+  
+  .input-error {
+    border-color: #dc3545;
+    background-color: #ffe6e6;
+  }
+  

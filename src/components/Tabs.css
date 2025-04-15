@@ -1,0 +1,30 @@
+.tabs {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  
+  .tab-header {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    background-color: var(--card-bg);
+  }
+  
+  .tab-header button {
+    flex: 1;
+    padding: 0.6rem;
+    border: none;
+    background: none;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--text);
+  }
+  
+  .tab-header button.active {
+    border-bottom: 3px solid var(--button-bg);
+    color: var(--button-bg);
+  }
+  
+  .tab-content {
+    padding: 1rem;
+  }
+  

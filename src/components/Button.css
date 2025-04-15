@@ -1,0 +1,34 @@
+
+/* BTN */
+.btn.default {
+    background-color: var(--button-bg);
+  }
+  .btn.default:hover:enabled {
+    background-color: var(--button-hover);
+  }
+  
+  .btn.error {
+    background-color: #dc3545;
+  }
+  .btn.error:hover:enabled {
+    background-color: #c82333;
+  }
+  
+  .btn.success {
+    background-color: #28a745;
+  }
+  .btn.success:hover:enabled {
+    background-color: #218838;
+  }
+  
+  .btn.loading {
+    background-color: #6c757d;
+    cursor: progress;
+  }
+  
+  .btn:disabled {
+    background-color: var(--button-disabled);
+    cursor: not-allowed;
+  }
+  
+  
