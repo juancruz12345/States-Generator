@@ -15,6 +15,7 @@ UI Component Lab es una aplicación web que permite a desarrolladores frontend:
   🔥 Sin necesidad de compilar, instalar ni configurar
 
 🚀 ¿Cómo se usa?
+
 1. Subí tu componente .jsx
 
 El componente debe:
@@ -76,14 +77,25 @@ Función | (e) => alert("Click!")
 🧠 Funcionalidades actuales
 
 ✅ Subida y renderizado de componentes
+
 ✅ Editor visual de props
+
 ✅ Soporte para funciones como onClick
+
 ✅ Clonado y edición de estados
+
 ✅ Modo claro/oscuro
+
 ✅ Exportación como código y archivo
+
 ✅ Vista previa en tiempo real
+
 ✅ Guía rápida embebida
+
 ✅ Componente de ejemplo descargable
+
+
+
 
 🔮 Ideas futuras (¡contribuciones bienvenidas!)
 
