@@ -1,4 +1,5 @@
 import './Button.css'
+import { motion } from 'framer-motion';
 
 export function Button({ label = 'Click me', loading, disabled, error, success }) {
     const getClass = () => {
@@ -9,9 +10,15 @@ export function Button({ label = 'Click me', loading, disabled, error, success }
     };
   
     return (
-      <button disabled={disabled || loading} className={getClass()}>
+      <motion.div
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 10 }}
+      >
+        <button disabled={disabled || loading} className={getClass()}>
         {loading ? 'Cargando...' : label}
       </button>
+      </motion.div>
     );
   }
   

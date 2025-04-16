@@ -31,7 +31,7 @@ export function Header({setSection, setDarkMode, darkMode}){
       📘 Guía rápida
     </button>
     <button className="nav-btn" onClick={() => setSection('galery')}>
-      🧱 Galería
+      🧱 Ejemplos
     </button>
     <button className="nav-btn" onClick={() => setSection('upload')}>
       📤 Subir componente

@@ -51,8 +51,8 @@
   }
   
   .upload-code {
-    background-color: #1e1e1e;
-    color: #dcdcdc;
+    background-color: var(--bg);
+    color: var(--text);
     font-family: 'Courier New', monospace;
     font-size: 0.85rem;
     padding: 1rem;

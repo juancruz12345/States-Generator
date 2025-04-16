@@ -65,6 +65,40 @@ export default function QuickStart() {
         💡 Ideal para desarrollo rápido, validación de props, documentación de componentes y revisión en equipo.
       </p>
 
+      <div
+        style={{
+          marginTop: '2rem',
+          padding: '1.25rem',
+          backgroundColor: 'rgba(100, 200, 255, 0.08)',
+          border: '1px dashed rgba(100, 200, 255, 0.5)',
+          borderRadius: '12px',
+          fontSize: '0.9rem',
+          lineHeight: 1.6,
+        }}
+      >
+        <h4 style={{ marginBottom: '0.5rem' }}>💡 Cómo usar funciones y estilos en las props</h4>
+
+        <p style={{ marginBottom: '0.4rem' }}>
+          Podés editar props desde el editor visual y usar:
+        </p>
+
+        <ul style={{ marginBottom: '0.5rem', paddingLeft: '1.2rem' }}>
+          <li><strong>Strings:</strong> <code>"Click me"</code></li>
+          <li><strong>Números:</strong> <code>42</code></li>
+          <li><strong>Booleans:</strong> <code>true</code>, <code>false</code></li>
+          <li><strong>Estilos:</strong> <code>{`{ "backgroundColor": "red" }`}</code></li>
+          <li>
+            <strong>Funciones:</strong> escribí como string: <br />
+            <code>{`(e) => alert('Hola')`}</code>
+          </li>
+        </ul>
+
+        <p style={{ fontSize: '0.85rem', opacity: 0.85 }}>
+          Las funciones se transforman internamente usando <code>eval</code> con validación segura, para que puedas testear <code>onClick</code>, <code>onChange</code>, etc.
+        </p>
+      </div>
+
+
       <button
         onClick={handleDownloadExample}
         style={{

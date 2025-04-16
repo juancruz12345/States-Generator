@@ -1,6 +1,15 @@
+import { motion } from "framer-motion";
+
+
 function ComponentGallery({ components, onSelect, selected }) {
     return (
-        <div className="component-gallery">
+        <motion.div
+         className="component-gallery"
+         initial={{opacity:0,y:-10}}
+         animate={{opacity:1,y:0}}
+         exit={{opacity:1,y:10}}
+
+         >
         {components.map((comp, idx) => (
           <button
             key={idx}
@@ -12,7 +21,7 @@ function ComponentGallery({ components, onSelect, selected }) {
             {comp.name}
           </button>
         ))}
-      </div>
+      </motion.div>
       
     );
   }

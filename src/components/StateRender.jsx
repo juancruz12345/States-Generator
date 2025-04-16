@@ -1,6 +1,24 @@
 import { StateEditor } from './StateEditor.jsx';
 import { useEffect, useState } from 'react';
 
+const parsePropValue = (value) => {
+  try {
+    const parsed = JSON.parse(value);
+    return parsed;
+  } catch {
+    if (typeof value === 'string' && value.trim().startsWith('(')) {
+      try {
+        // Evaluar función solo si empieza con "("
+        return eval(value);
+      } catch {
+        return value;
+      }
+    }
+    return value;
+  }
+};
+
+
 export default function StateRenderer({ name, Component, states }) {
   const [localStates, setLocalStates] = useState({ ...states });
   const [showExport, setShowExport] = useState(false);
@@ -50,6 +68,15 @@ export default function StateRenderer({ name, Component, states }) {
     URL.revokeObjectURL(url);
   };
 
+  const mapProps = (rawProps) => {
+    const result = {};
+    for (const key in rawProps) {
+      result[key] = parsePropValue(rawProps[key]);
+    }
+    return result;
+  };
+  
+
   return (
     <div style={{ marginTop: '2rem' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -95,7 +122,7 @@ export default function StateRenderer({ name, Component, states }) {
           <div key={stateName} className="state-card">
             <h3>{stateName}</h3>
             <div className="state-preview">
-              <Component  key={props?.type || 'default'} {...props} />
+              <Component  key={props?.type || 'default'} {...mapProps(props)} />
             </div>
             <StateEditor
               stateName={stateName}

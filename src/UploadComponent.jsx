@@ -57,7 +57,7 @@ export function UploadComponent({ onComponentReady }) {
       if (!Component) {
         throw new Error('No se encontró export default');
       }
-
+      
       onComponentReady({ name: file.name, Component, states });
       setError(null);
     } catch (err) {
@@ -85,16 +85,18 @@ export function UploadComponent({ onComponentReady }) {
 
       <p style={{ marginTop: '1rem', fontWeight: 600 }}>🧪 Ejemplo de componente válido:</p>
       <pre className="upload-code">
-{`function TestComponent({ label }) {
-  return <button>{label}</button>;
-}
-
-export default TestComponent;
-
-export const states = {
-  Default: { label: "Click me" },
-  Danger: { label: "Eliminar", style: { backgroundColor: "red", color: "white" } },
-};`}
+{`function TestComponent({ label, style, onClickFunction }) {
+    return <button onClick={onClickFunction} style={style}>{label}</button>;
+  }
+  
+  export default TestComponent;
+  
+  export const states = {
+    Default: { label: "Click me",onClickFunction:"(e) => console.log('clicked')" },
+    Danger: { label: "Eliminar", style: { backgroundColor: "red", color: "white" } },
+   
+  };
+  `}
       </pre>
 
       {error && <p className="upload-error">{error}</p>}
