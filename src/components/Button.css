@@ -1,34 +1,31 @@
 
-/* BTN */
-.btn.default {
-    background-color: var(--button-bg);
-  }
-  .btn.default:hover:enabled {
-    background-color: var(--button-hover);
-  }
-  
-  .btn.error {
-    background-color: #dc3545;
-  }
-  .btn.error:hover:enabled {
-    background-color: #c82333;
-  }
-  
-  .btn.success {
-    background-color: #28a745;
-  }
-  .btn.success:hover:enabled {
-    background-color: #218838;
-  }
-  
-  .btn.loading {
-    background-color: #6c757d;
-    cursor: progress;
-  }
-  
-  .btn:disabled {
-    background-color: var(--button-disabled);
-    cursor: not-allowed;
-  }
-  
-  
+:root{
+  --button-bg: #007bff;
+  --button-hover: #0056b3;
+  --button-hover: #0056b3;
+  --button-disabled: #d6d6d6;
+}
+.dark{
+  --border: #333;
+  --button-bg: #3399ff;
+  --button-hover: #66b3ff;
+  --button-disabled: #444;
+}
+
+
+.btn-error:hover:enabled {
+  background-color: #c82333;
+}
+
+
+.btn-success:hover:enabled {
+  background-color: #218838;
+}
+
+
+button:disabled{
+  background-color: var(--button-disabled);
+  cursor: not-allowed;
+}
+
+

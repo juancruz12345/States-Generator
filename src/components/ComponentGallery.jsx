@@ -1,7 +1,18 @@
 import { motion } from "framer-motion";
+import components from './components-library'
 
+function ComponentGallery({  onSelect, selected }) {
 
-function ComponentGallery({ components, onSelect, selected }) {
+    const componentsOrderer = components.sort(function (a, b) {
+      if (a.name > b.name) {
+        return 1
+      }
+      if (a.name < b.name) {
+        return -1
+      }
+      return 0
+    })
+ 
     return (
         <motion.div
          className="component-gallery"
@@ -10,7 +21,7 @@ function ComponentGallery({ components, onSelect, selected }) {
          exit={{opacity:1,y:10}}
 
          >
-        {components.map((comp, idx) => (
+        {componentsOrderer.map((comp, idx) => (
           <button
             key={idx}
             onClick={() => onSelect(comp)}

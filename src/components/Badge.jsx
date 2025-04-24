@@ -1,12 +1,17 @@
-import './Badge.css'
-import { motion } from 'framer-motion';
+import './Badge.css';
 
-export function Badge({ text = 'Nuevo', variant = 'info' }) {
-    return <motion.div
-    className={`badge badge-${variant}`}
-    initial={{ opacity: 0, y: -10 }}
-    animate={{ opacity: 1, y: 0 }}
-    exit={{ opacity: 0, y: 10 }}
-  > <span>{text}</span></motion.div>
-  }
- 
+function Badge({ children, type = 'info' }) {
+  return (
+    <span className={`badge badge-${type}`}>
+      {children}
+    </span>
+  );
+}
+
+export default Badge;
+
+export const states = {
+  Info: { children: "Info", type: "info" },
+  Warning: { children: "Advertencia", type: "warning" },
+  Success: { children: "Éxito", type: "success" }
+};

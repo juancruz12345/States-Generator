@@ -1,17 +1,31 @@
-import { motion } from 'framer-motion';
-import './Alert.css'
+import './Alert.css';
 
-export default function Alert({ message = '¡Algo pasó!', type = 'info' }) {
+function Alert({ children, ...props }) {
   return (
-    <motion.div
-      className={`alert alert-${type}`}
-      initial={{ opacity: 0, y: -10 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 10 }}
-    >
-      {message}
-    </motion.div>
+    <div className="alert-container" {...props}>
+      {children}
+    </div>
   );
 }
 
-  
+export default Alert;
+
+export const states = {
+  Default: {
+  children: "Alert content"
+},
+  Success: {
+  children: "Datos enviados",
+  style:{  
+    backgroundColor: "#d1e7dd",
+    color: "#0f5132"
+    }
+},
+  Error: {
+  children: "Hubo un error",
+  style:{  
+  backgroundColor: "#f8d7da",
+  color: "#842029"
+  }
+}
+};

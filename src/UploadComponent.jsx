@@ -4,7 +4,9 @@ import * as Babel from '@babel/standalone';
 import './UploadComponent.css';
 
 export function UploadComponent({ onComponentReady }) {
+  
   const [error, setError] = useState(null);
+  const [show, setShow] = useState(false)
 
   const handleFile = async (e) => {
     const file = e.target.files[0];
@@ -70,6 +72,7 @@ export function UploadComponent({ onComponentReady }) {
 
   return (
     <div className="upload">
+      
       <label className="upload-label">
         📁 Subí tu componente personalizado:
         <input type="file" accept=".js,.jsx" onChange={handleFile} className="upload-input" />
@@ -82,8 +85,18 @@ export function UploadComponent({ onComponentReady }) {
         <li>🔹 Sin dependencias externas</li>
         <li>✅ Formato: <code>.js</code> o <code>.jsx</code></li>
       </ul>
-
-      <p style={{ marginTop: '1rem', fontWeight: 600 }}>🧪 Ejemplo de componente válido:</p>
+     {
+      show
+      ?
+      <button style={{marginTop:'2rem'}} onClick={()=>{setShow(prev => !prev)}}>🔼 Ocultar ejemplo</button>
+      :
+      <button style={{marginTop:'2rem'}} onClick={()=>{setShow(prev => !prev)}}>🔽 Mostrar ejemplo</button>
+     }
+      {
+        show
+        ?
+       <div style={{marginTop:'2rem'}}>
+         <p style={{ marginTop: '1rem', fontWeight: 600 }}>🧪 Ejemplo de componente válido:</p>
       <pre className="upload-code">
 {`function TestComponent({ label, style, onClickFunction }) {
     return <button onClick={onClickFunction} style={style}>{label}</button>;
@@ -98,6 +111,9 @@ export function UploadComponent({ onComponentReady }) {
   };
   `}
       </pre>
+       </div>
+      :<></>
+      }
 
       {error && <p className="upload-error">{error}</p>}
     </div>

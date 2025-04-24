@@ -1,5 +1,8 @@
+
 import { StateEditor } from './StateEditor.jsx';
 import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+
 
 const parsePropValue = (value) => {
   try {
@@ -19,71 +22,95 @@ const parsePropValue = (value) => {
 };
 
 
-export default function StateRenderer({ name, Component, states }) {
+export default function StateRenderer({ states, Component, name, jsxCode, cssCode}) {
   const [localStates, setLocalStates] = useState({ ...states });
   const [showExport, setShowExport] = useState(false);
- useEffect(()=>{
-  setLocalStates(states)
- },[Component])
+  const [cloneName, setCloneName] = useState('');
+  const [copied, setCopied] = useState(null);
+  const [msgCopied, setMsgCopied] = useState('')
+  
+
+  useEffect(() => {
+    setLocalStates(states)
+  }, [name])
   
  
  const handlePropChange = (stateName, newProps) => {
     setLocalStates((prev) => ({
       ...prev,
       [stateName]: newProps,
-    }));
-  };
+    }))
+  }
 
-  const handleClone = (newName, props) => {
+  const handleClone = (newName,props) => {
     if (localStates[newName]) {
-      alert('⚠️ Ya existe un estado con ese nombre.');
-      return;
+      alert('⚠️ Ya existe un estado con ese nombre.')
+      return
     }
     setLocalStates((prev) => ({
       ...prev,
-      [newName]: props,
-    }));
-  };
+      [newName]:props,
+    }))
+  }
 
   const generateJSXCode = () => {
     const entries = Object.entries(localStates)
       .map(([key, val]) => `  ${JSON.stringify(key)}: ${JSON.stringify(val, null, 2)}`)
-      .join(',\n');
+      .join(',\n')
 
-    return `export const states = {\n${entries}\n};`;
+    return `export const states = {\n${entries}\n};`
   };
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(generateJSXCode());
-    alert('📋 Código copiado al portapapeles');
+    navigator.clipboard.writeText(generateJSXCode())
+    alert('📋 Código copiado al portapapeles')
   };
 
   const downloadJSFile = () => {
-    const blob = new Blob([generateJSXCode()], { type: 'text/javascript' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `${name.replace(/\s/g, '')}_states.js`;
-    link.click();
-    URL.revokeObjectURL(url);
-  };
+    const blob = new Blob([generateJSXCode()], { type: 'text/javascript' })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = `${name.replace(/\s/g, '')}_states.js`
+    link.click()
+    URL.revokeObjectURL(url)
+  }
 
   const mapProps = (rawProps) => {
-    const result = {};
+    const result = {}
     for (const key in rawProps) {
-      result[key] = parsePropValue(rawProps[key]);
+      result[key] = parsePropValue(rawProps[key])
     }
-    return result;
-  };
+    return result
+  }
+
+  const handleCloneState = () => {
+    if (!cloneName) return
+    handleClone(cloneName)
+    setCloneName('')
+  }
+ 
   
+  const handleCopy = (text, label) => {
+    navigator.clipboard.writeText(text)
+      setCopied(label)
+
+    setTimeout(() => setCopied(null), 1500)
+  }
 
   return (
     <div style={{ marginTop: '2rem' }}>
+     
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
        
         <button onClick={() => setShowExport(!showExport)} style={{ fontSize: '0.9rem' }}>
           {showExport ? '🔽 Ocultar exportación' : '📤 Exportar estados'}
         </button>
+        <div style={{display:'flex',gap:'22px'}}>
+            <button onClick={() => {handleCopy(jsxCode, `${name} JSX`), setMsgCopied('jsx')}}>{copied !==null && msgCopied==='jsx' ? <div className="copied-alert">✔ {copied?.split(' ')[1]} copiado</div> : '📄 Copiar JSX' }</button>
+            <button onClick={() => {handleCopy(cssCode, `${name} CSS`),setMsgCopied('css')}}>{copied!==null && msgCopied==='css'  ? <div className="copied-alert">✔ {copied?.split(' ')[1]} copiado</div> : '🎨 Copiar CSS'}</button>
+          </div>
+
       </div>
 
       {showExport && (
@@ -118,20 +145,54 @@ export default function StateRenderer({ name, Component, states }) {
       )}
 
       <div className="state-container">
-        {Object.entries(localStates).map(([stateName, props]) => (
-          <div key={stateName} className="state-card">
-            <h3>{stateName}</h3>
-            <div className="state-preview">
-              <Component  key={props?.type || 'default'} {...mapProps(props)} />
-            </div>
-            <StateEditor
-              stateName={stateName}
-              props={props}
-              onUpdate={handlePropChange}
-              onClone={handleClone}
-            />
-          </div>
-        ))}
+      {Object.entries(localStates).map(([stateName, props]) => {
+  const mappedProps = mapProps(props)
+  const tagName = Component.name?.toLowerCase?.() || '';
+  const voidElements = ['input', 'img', 'br', 'hr', 'meta', 'link']
+  const isVoid = voidElements.includes(tagName)
+  const cleanProps = isVoid
+    ? Object.fromEntries(Object.entries(mappedProps).filter(([key]) => key !== 'children'))
+    : mappedProps
+
+  return (
+    <motion.div
+      key={`${name}-${stateName}`}
+      className="state-card"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+      transition={{ duration: 0.2 }}
+    >
+      <h3>{stateName}</h3>
+      <div className="state-preview">
+        
+        <Component key={props?.type || 'default'} {...cleanProps} />
+      </div>
+      <StateEditor
+        stateName={stateName}
+        props={props}
+        onUpdate={handlePropChange}
+        onClone={handleClone}
+      />
+    </motion.div>
+  );
+})}
+
+        
+      </div>
+      <div className='state-card' style={{width:'fit-content', display:'flex', flexDirection:'column', marginTop:'1rem'}}>
+        <h3>➕  Crear estado </h3>
+        <h5 style={{ fontSize: '0.85rem', marginBottom: '0.25rem' }}>📝 Nombre</h5>
+        <input
+          placeholder="nombre del nuevo estado"
+          defaultValue=''
+          onChange={(e) => setCloneName(e.target.value)}
+          style={{ width: '100%', padding: '0.4rem', border: '1px solid #ccc',
+            borderRadius: '6px' }}
+        />
+        <button onClick={handleCloneState} style={{ marginTop: '0.5rem', fontSize: '0.85rem' }}>
+        Crear
+        </button>
       </div>
     </div>
   );

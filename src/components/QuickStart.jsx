@@ -1,4 +1,5 @@
-import exampleFile from '../components/TestComponent.jsx?raw' // 👉 importante si usás Vite
+import exampleFile from '../components/TestComponent.jsx?raw'
+import { motion } from 'framer-motion';
 
 export default function QuickStart() {
   const handleDownloadExample = () => {
@@ -12,7 +13,11 @@ export default function QuickStart() {
   };
 
   return (
-    <div
+    <motion.div
+    initial={{opacity:0,y:-10}}
+    animate={{opacity:1,y:0}}
+    exit={{opacity:1,y:10}}
+
       style={{
         backgroundColor: 'var(--card-bg)',
         border: '1px solid var(--border)',
@@ -88,14 +93,12 @@ export default function QuickStart() {
           <li><strong>Booleans:</strong> <code>true</code>, <code>false</code></li>
           <li><strong>Estilos:</strong> <code>{`{ "backgroundColor": "red" }`}</code></li>
           <li>
-            <strong>Funciones:</strong> escribí como string: <br />
+            <strong>Funciones:</strong> escribí como string entre comillas: <br />
             <code>{`(e) => alert('Hola')`}</code>
           </li>
         </ul>
 
-        <p style={{ fontSize: '0.85rem', opacity: 0.85 }}>
-          Las funciones se transforman internamente usando <code>eval</code> con validación segura, para que puedas testear <code>onClick</code>, <code>onChange</code>, etc.
-        </p>
+        
       </div>
 
 
@@ -114,6 +117,6 @@ export default function QuickStart() {
       >
         📄 Descargar ejemplo válido
       </button>
-    </div>
+    </motion.div>
   );
 }

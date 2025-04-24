@@ -1,0 +1,60 @@
+.toast-container {
+    position: fixed;
+    z-index: 9999;
+    width: fit-content;
+    max-width: 90%;
+  }
+  
+  .toast {
+    position: relative;
+    padding: 0.75rem 1.5rem 0.75rem 1rem;
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   
+    
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+   
+
+    & button:hover{
+        background-color: rgba(255, 255, 255, 0.322) !important;
+    }
+}
+  
+
+  
+  /* Tipos */
+  .toast-info    { background-color: #0dcaf0; }
+  .toast-success { background-color: #198754; }
+  .toast-error   { background-color: #dc3545; }
+  .toast-warning { background-color: #ffc107; color: black; }
+  
+  .toast-message {
+    flex: 1;
+    margin-right: 0.5rem;
+  }
+  .toast-close {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: inherit;
+    cursor: pointer;
+    padding: 0;
+  }
+  
+  /* Posiciones */
+  .top-start    { top: 1rem; left: 1rem; }
+  .top-center   { top: 1rem; left: 50%; transform: translateX(-50%); }
+  .top-end      { top: 1rem; right: 1rem; }
+  
+  .bottom-start { bottom: 1rem; left: 1rem; }
+  .bottom-center{ bottom: 1rem; left: 50%; transform: translateX(-50%); }
+  .bottom-end   { bottom: 1rem; right: 1rem; }
+  
+  .center-start { top: 50%; left: 1rem; transform: translateY(-50%); }
+  .center       { top: 50%; left: 50%; transform: translate(-50%, -50%); }
+  .center-end   { top: 50%; right: 1rem; transform: translateY(-50%); }
+  

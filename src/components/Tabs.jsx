@@ -1,29 +1,36 @@
+import { color } from 'framer-motion';
+import './Tabs.css';
 import { useState } from 'react';
-import './Tabs.css'
-import { motion } from 'framer-motion';
 
-export function Tabs({ tabs = {} }) {
-  const tabNames = Object.keys(tabs);
-  const [selected, setSelected] = useState(tabNames[0]);
+function Tabs({...props}) {
+  const [activeTab, setActiveTab] = useState(0);
+  const tabs = ["Inicio", "Perfil", "Ajustes"];
+  const contents = ["Contenido de Inicio", "Contenido de Perfil", "Contenido de Ajustes"];
 
   return (
-    <motion.div className="tabs"
-    initial={{ opacity: 0, y: -10 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 10 }}
-    >
-      <div className="tab-header">
-        {tabNames.map(name => (
+    <div className="tabs" >
+      <div className="tablist">
+        {tabs.map((tab, i) => (
           <button
-            key={name}
-            className={selected === name ? 'active' : ''}
-            onClick={() => setSelected(name)}
+          
+            key={i}
+            className={i === activeTab ? 'active' : ''}
+            onClick={() => setActiveTab(i)}
+            {...props}
           >
-            {name}
+            {tab}
           </button>
         ))}
       </div>
-      <div className="tab-content">{tabs[selected]}</div>
-    </motion.div>
+      <div className="tabpanel">{contents[activeTab]}</div>
+    </div>
   );
 }
+
+export default Tabs;
+
+export const states = {
+  Default: {},
+  Minimal:{style:{backgroundColor:"transparent", color:"grey"}}
+
+};

@@ -1,0 +1,29 @@
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+.checkbox input {
+  display: none;
+}
+.checkmark {
+  width: 16px;
+  height: 16px;
+  background: white;
+  border-radius: 4px;
+  display: inline-block;
+  position: relative;
+  border: 1px solid grey;
+}
+.checkbox input:checked + .checkmark::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 0;
+  width: 4px;
+  height: 8px;
+  border: solid #0ddb39;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}

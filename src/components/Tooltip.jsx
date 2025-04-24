@@ -1,24 +1,19 @@
-import { useState } from 'react';
-import './Tooltip.css'
-import { motion } from 'framer-motion';
+import './Tooltip.css';
 
-export function Tooltip({ text, children }) {
-  const [visible, setVisible] = useState(false);
-
+function Tooltip({ label, position = 'top', children }) {
   return (
-   <motion.div
-   initial={{ opacity: 0, y: -10 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 10 }}
-      >
-     <span
-      className="tooltip-wrapper"
-      onMouseEnter={() => setVisible(true)}
-      onMouseLeave={() => setVisible(false)}
-    >
+    <div className={`tooltip-wrapper tooltip-${position}`}>
       {children}
-      {visible && <span className="tooltip-text">{text}</span>}
-    </span>
-   </motion.div>
+      <span className="tooltip">{label}</span>
+    </div>
   );
 }
+
+export default Tooltip;
+
+export const states = {
+  Top: { label: "Tooltip arriba", position: 'top', children: "🖱 Hover" },
+  Bottom: { label: "Tooltip abajo", position: 'bottom', children: "🖱 Hover" },
+  Right: { label: "Tooltip a la derecha", position: 'right', children: "🖱 Hover" },
+  Left: { label: "Tooltip a la izquierda", position: 'left', children: "🖱 Hover" }
+};

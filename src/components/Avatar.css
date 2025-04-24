@@ -1,0 +1,37 @@
+.avatar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: #f8f9fa;
+  padding: 0.75rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.avatar-img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.avatar-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.avatar-name {
+  font-weight: bold;
+  font-size: 0.95rem;
+}
+
+.avatar-status {
+  font-size: 0.75rem;
+  color: #28a745;
+}
+
+body.dark{
+  .avatar,.avatar-info, .avatar-name{
+    color: black;
+  }
+  
+}

@@ -1,23 +1,40 @@
 import { useState, useEffect } from 'react';
 
-export function StateEditor({ stateName, props, onUpdate, onClone }) {
+export function StateEditor({ stateName, props, onUpdate }) {
   const [localProps, setLocalProps] = useState({ ...props });
   const [newPropKey, setNewPropKey] = useState('');
   const [newPropValue, setNewPropValue] = useState('');
-  const [cloneName, setCloneName] = useState('');
+  
+  const [inputs, setInputs] = useState(() => {
+    const initial = {};
+    Object.entries(props).forEach(([k, v]) => {
+      initial[k] = typeof v === 'object' ? JSON.stringify(v, null, 2) : String(v);
+    });
+    return initial;
+  });
+  
 
   useEffect(() => {
     setLocalProps({ ...props });
   }, [props]);
 
   const handleChange = (key, value) => {
-    const updated = {
-      ...localProps,
-      [key]: tryParseValue(value),
-    };
-    setLocalProps(updated);
-    onUpdate(stateName, updated);
+    setInputs((prev) => ({ ...prev, [key]: value }));
+  
+    // solo parsea si es válido
+    try {
+      const parsed = eval(`(${value})`);
+      if (typeof parsed === 'object' || typeof parsed === 'string' || typeof parsed === 'number') {
+        const updated = { ...localProps, [key]: parsed };
+        setLocalProps(updated);
+        onUpdate(stateName, updated);
+      }
+    } catch {
+      // no se actualiza nada si no es válido
+    }
   };
+  
+  
 
   const handleAddProp = () => {
     if (!newPropKey) return;
@@ -38,11 +55,11 @@ export function StateEditor({ stateName, props, onUpdate, onClone }) {
     onUpdate(stateName, updated);
   };
 
-  const handleCloneState = () => {
+  /*const handleCloneState = () => {
     if (!cloneName) return;
     onClone(cloneName, localProps);
     setCloneName('');
-  };
+  };*/
 
   return (
     <div style={{ marginTop: '0.75rem' }}>
@@ -56,7 +73,7 @@ export function StateEditor({ stateName, props, onUpdate, onClone }) {
             </button>
           </label>
           <input
-            value={typeof value === 'object' ? JSON.stringify(value) : value}
+            defaultValue={typeof value === 'object' ? JSON.stringify(value) : value}
             onChange={(e) => handleChange(key, e.target.value)}
             style={{
               width: '100%',
@@ -90,27 +107,26 @@ export function StateEditor({ stateName, props, onUpdate, onClone }) {
         </button>
       </div>
 
-      <div style={{ marginTop: '1rem' }}>
-        <h5 style={{ fontSize: '0.85rem', marginBottom: '0.25rem' }}>💾 Guardar como nuevo estado</h5>
-        <input
-          placeholder="nombre del nuevo estado"
-          value={cloneName}
-          onChange={(e) => setCloneName(e.target.value)}
-          style={{ width: '100%', padding: '0.4rem', border: '1px solid #ccc',
-            borderRadius: '6px' }}
-        />
-        <button onClick={handleCloneState} style={{ marginTop: '0.5rem', fontSize: '0.85rem' }}>
-          💾 Clonar estado
-        </button>
-      </div>
+     
     </div>
   );
 }
 
 function tryParseValue(value) {
   try {
+    if (value.trim().startsWith('{') || value.trim().startsWith('[')) {
+      // eval objeto o array si no es JSON válido
+      return eval(`(${value})`);
+    }
+
+    if (value === 'true') return true;
+    if (value === 'false') return false;
+    if (!isNaN(Number(value))) return Number(value);
+    if (value === 'null') return null;
+
+
     return JSON.parse(value);
   } catch {
-    return value;
+    return null; // inválido mientras se escribe
   }
 }

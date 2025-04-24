@@ -1,23 +1,20 @@
-import { Button } from '../components/Button';
-import { Input } from '../components/Input';
-import { Badge } from '../components/Badge';
-import  Alert  from '../components/Alert';
-import { Loader } from '../components/Loader';
-import { Tooltip } from '../components/Tooltip';
-import { Tabs } from '../components/Tabs';
+import  Button, {states as btnStates} from '../components/Button';
+import  Input from '../components/Input';
+import  Badge  from '../components/Badge';
+import  Alert,{states as alertStates}  from '../components/Alert';
+import Loader  from '../components/Loader';
+import  Tooltip  from '../components/Tooltip';
+
+import Avatar from '../components/Avatar';
+import Modal from '../components/Modal';
 
 export const components = [
   {
     name: 'Button',
     Component: Button,
-    states: {
-      Default: { label: 'Enviar' },
-      Loading: { label: 'Enviando...', loading: true },
-      Disabled: { label: 'Enviar', disabled: true },
-      Error: { label: 'Error', error: true },
-      Success: { label: 'Listo', success: true },
-    },
-  },
+    states : btnStates
+    }
+  ,
   {
     name: 'Input',
     Component: Input,
@@ -39,11 +36,7 @@ export const components = [
   {
     name: 'Alert',
     Component: Alert,
-    states: {
-      Info: { message: 'Guardado correctamente', type: 'info' },
-      Error: { message: 'No se pudo guardar', type: 'error' },
-      Success: { message: 'Datos enviados', type: 'success' },
-    },
+    states:alertStates
   },
   {
     name: 'Loader',
@@ -64,17 +57,38 @@ export const components = [
       },
     },
   },
+ 
   {
-    name: 'Tabs',
-    Component: Tabs,
+    name: 'Avatar',
+    Component: Avatar,
     states: {
       Default: {
-        tabs: {
-          Inicio: <p>Bienvenido a la app</p>,
-          Perfil: <p>Tu perfil está vacío</p>,
-          Ajustes: <p>Modo oscuro, notificaciones, etc.</p>,
-        },
+        children: "Avatar content"
+      },
+        Small: {
+        children: "s",
+        style: {
+          width: "30px",
+          height: "30px"
+        }
+      },
+        Large: {
+        children: "L",
+        style: {
+          width: "60px",
+          height: "60px"
+        }
+      }
+    },
+  },
+  {
+    name: 'Modal',
+    Component: Modal,
+    states: {
+      Default: {
+        children: <div><p>Hola soy un modal</p></div>
       },
     },
   },
+
 ];

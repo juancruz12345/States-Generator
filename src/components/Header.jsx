@@ -1,3 +1,5 @@
+
+
 export function Header({setSection, setDarkMode, darkMode}){
 
     return(
@@ -12,10 +14,10 @@ export function Header({setSection, setDarkMode, darkMode}){
     position: 'sticky',
     top: 0,
     backgroundColor: 'var(--bg)',
-    zIndex: 1000,
+    zIndex: 2,
   }}
 >
-  <h1
+<h1
     style={{
       fontWeight: 700,
       fontSize: '1.4rem',
@@ -23,8 +25,11 @@ export function Header({setSection, setDarkMode, darkMode}){
       letterSpacing: '-0.5px',
     }}
   >
-    🧪 UI Component Lab
+    🧪 ComponentLab
   </h1>
+  
+    {/**<img style={{width:"22%"}} src="/Logo.png"></img> */}
+  
 
   <nav style={{ display: 'flex', gap: '0.75rem' }}>
     <button className="nav-btn" onClick={() => setSection('guide')}>

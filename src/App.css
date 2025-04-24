@@ -55,7 +55,9 @@ h2 {
 }
 
 /* COMPONENT GALLERY */
-
+.div-comp{
+  width: 100%;
+}
 .component-gallery {
   display: flex;
   flex-wrap: wrap;
@@ -129,7 +131,19 @@ h2 {
   justify-content: center;
   align-items: center;
 }
-
+.div-comp{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  
+}
+.div-motion{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 /* BUTTON COMPONENT PREVIEW */
 
