@@ -1,8 +1,8 @@
 import './Tag.css';
 
-function Tag({ active = false }) {
+function Tag({ active = false, children, ...props }) {
   return (
-    <span className={`tag ${active ? 'active' : 'inactive'}`}>
+    <span className={`tag ${active ? 'active' : 'inactive'}`} {...props}>
       {active ? 'Activo' : 'Inactivo'}
     </span>
   );

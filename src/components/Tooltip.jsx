@@ -1,8 +1,8 @@
 import './Tooltip.css';
 
-function Tooltip({ label, position = 'top', children }) {
+function Tooltip({ label, position = 'top', children, ...props }) {
   return (
-    <div className={`tooltip-wrapper tooltip-${position}`}>
+    <div className={`tooltip-wrapper tooltip-${position}`} {...props}>
       {children}
       <span className="tooltip">{label}</span>
     </div>

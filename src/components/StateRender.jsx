@@ -6,19 +6,17 @@ import { motion } from 'framer-motion';
 
 const parsePropValue = (value) => {
   try {
-    
-    const parsed = JSON.parse(value)
-    return parsed
+    return JSON.parse(value); // Intenta parsear JSON primero
   } catch {
     if (typeof value === 'string' && value.trim().startsWith('(')) {
       try {
-        // Evaluar función solo si empieza con "("
-        return eval(value)
+        // Usar new Function en lugar de eval
+        return new Function(`return ${value}`)();
       } catch {
-        return value
+        return value; // Si falla, devuelve el string original
       }
     }
-    return value
+    return value;
   }
 };
 

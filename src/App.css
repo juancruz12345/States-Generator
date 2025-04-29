@@ -45,17 +45,12 @@ body {
   line-height: 1.6;
 }
 
-h1 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  
+h1, h2, h3 {
+ 
+  font-weight: 600;
+  letter-spacing: -0.5px;
 }
 
-h2 {
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-}
 
 .app-container {
   max-width: 1200px;
@@ -128,6 +123,7 @@ justify-items: center;
 .state-card {
   background: var(--card-bg);
   border: 1px solid var(--border);
+  
   border-radius: 10px;
   padding: 1rem;
   & h3{
@@ -171,8 +167,11 @@ button {
   border-radius: 6px;
   color: white;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease,transform 0.2s;
   
+}
+button:hover {
+  transform: translateY(-2px);
 }
 
 .button-secondary{

@@ -1,7 +1,7 @@
 import './Toast.css';
 import { useState, useEffect } from 'react';
 
-function Toast({ message, type = 'info', duration, position = 'top-center' }) {
+function Toast({ message, type = 'info', duration, position = 'top-center', ...props }) {
   
     const [visible, setVisible] = useState(false)
   
@@ -27,7 +27,7 @@ function Toast({ message, type = 'info', duration, position = 'top-center' }) {
    
       {
         visible ?
-            <div className={`toast-container ${position}`}>
+            <div className={`toast-container ${position}`} {...props}>
             <div
               className={`toast toast-${type}`}
               

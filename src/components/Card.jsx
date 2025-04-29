@@ -1,8 +1,8 @@
 import './Card.css';
 
-function Card({ title = '', content = '', footer = '' }) {
+function Card({ title = '', content = '', footer = '',children,...props }) {
   return (
-    <div className="card">
+    <div className="card" {...props }>
       <div className="card-header">{title}</div>
       <div className="card-body">{content}</div>
       {footer && <div className="card-footer">{footer}</div>}

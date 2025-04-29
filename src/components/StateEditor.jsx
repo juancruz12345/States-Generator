@@ -23,7 +23,8 @@ export function StateEditor({ stateName, props, onUpdate }) {
   
     // solo parsea si es válido
     try {
-      const parsed = eval(`(${value})`);
+      
+      const parsed = new Function(`return ${value}`)();
       if (typeof parsed === 'object' || typeof parsed === 'string' || typeof parsed === 'number') {
         const updated = { ...localProps, [key]: parsed };
         setLocalProps(updated);
@@ -55,11 +56,6 @@ export function StateEditor({ stateName, props, onUpdate }) {
     onUpdate(stateName, updated);
   };
 
-  /*const handleCloneState = () => {
-    if (!cloneName) return;
-    onClone(cloneName, localProps);
-    setCloneName('');
-  };*/
 
   return (
     <div style={{ marginTop: '0.75rem' }}>
@@ -116,7 +112,7 @@ function tryParseValue(value) {
   try {
     if (value.trim().startsWith('{') || value.trim().startsWith('[')) {
       // eval objeto o array si no es JSON válido
-      return eval(`(${value})`);
+      return new Function(`return ${value}`)();
     }
 
     if (value === 'true') return true;

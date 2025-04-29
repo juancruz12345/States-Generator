@@ -1,8 +1,8 @@
 import './Badge.css';
 
-function Badge({ children, type = 'info' }) {
+function Badge({ children, type = 'info',...props }) {
   return (
-    <span className={`badge badge-${type}`}>
+    <span className={`badge badge-${type}`} {...props}>
       {children}
     </span>
   );
