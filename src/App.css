@@ -8,7 +8,11 @@
   --button-hover: #0056b3;
   --button-disabled: #d6d6d6;
   --example-btn:white;
+  --button-primary-bg: #e6f0ff;
+--button-primary-hover: #cce0ff;
+--button-primary-text: #0056b3;
   
+
 }
 
 .dark {
@@ -19,6 +23,11 @@
   --button-bg: #3399ff;
   --button-hover: #66b3ff;
   --button-disabled: #444;
+  --button-primary-bg: #1a2b3d;
+--button-primary-hover: #223a54;
+--button-primary-text: #66b3ff;
+ 
+
 }
 
 
@@ -63,6 +72,7 @@ h2 {
   flex-wrap: wrap;
   gap: 1rem;
   margin-bottom: 2rem;
+ 
 }
 
 .component-button {
@@ -101,10 +111,17 @@ h2 {
 }
 
 .state-container {
-  display: flex;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-  margin-top: 1rem;
+ 
+  margin-top: 2rem;
+
+}
+.state-div{
+  
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+gap: 1rem;
+justify-items: center;
+
 }
 
 
@@ -155,7 +172,17 @@ button {
   color: white;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  
 }
+
+.button-secondary{
+  background: var(--button-primary-bg) !important;
+  color: var(--button-primary-text) !important;
+}
+.button-secondary:hover{
+  background: var(--button-primary-hover) !important;
+}
+
 
 
 

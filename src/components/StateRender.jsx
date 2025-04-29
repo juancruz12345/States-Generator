@@ -6,28 +6,30 @@ import { motion } from 'framer-motion';
 
 const parsePropValue = (value) => {
   try {
-    const parsed = JSON.parse(value);
-    return parsed;
+    
+    const parsed = JSON.parse(value)
+    return parsed
   } catch {
     if (typeof value === 'string' && value.trim().startsWith('(')) {
       try {
         // Evaluar función solo si empieza con "("
-        return eval(value);
+        return eval(value)
       } catch {
-        return value;
+        return value
       }
     }
-    return value;
+    return value
   }
 };
 
 
 export default function StateRenderer({ states, Component, name, jsxCode, cssCode}) {
-  const [localStates, setLocalStates] = useState({ ...states });
-  const [showExport, setShowExport] = useState(false);
-  const [cloneName, setCloneName] = useState('');
-  const [copied, setCopied] = useState(null);
+  const [localStates, setLocalStates] = useState({ ...states })
+  const [showExport, setShowExport] = useState(false)
+  const [cloneName, setCloneName] = useState('')
+  const [copied, setCopied] = useState(null)
   const [msgCopied, setMsgCopied] = useState('')
+
   
 
   useEffect(() => {
@@ -59,12 +61,12 @@ export default function StateRenderer({ states, Component, name, jsxCode, cssCod
       .join(',\n')
 
     return `export const states = {\n${entries}\n};`
-  };
+  }
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(generateJSXCode())
     alert('📋 Código copiado al portapapeles')
-  };
+  }
 
   const downloadJSFile = () => {
     const blob = new Blob([generateJSXCode()], { type: 'text/javascript' })
@@ -86,7 +88,7 @@ export default function StateRenderer({ states, Component, name, jsxCode, cssCod
 
   const handleCloneState = () => {
     if (!cloneName) return
-    handleClone(cloneName)
+    handleClone(cloneName, {})
     setCloneName('')
   }
  
@@ -103,13 +105,30 @@ export default function StateRenderer({ states, Component, name, jsxCode, cssCod
      
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
        
-        <button onClick={() => setShowExport(!showExport)} style={{ fontSize: '0.9rem' }}>
+       <motion.div
+        initial={{ opacity: 0, x: -50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.2 }}
+       >
+       <button onClick={() => setShowExport(!showExport)} className='button-secondary' >
           {showExport ? '🔽 Ocultar exportación' : '📤 Exportar estados'}
         </button>
-        <div style={{display:'flex',gap:'22px'}}>
-            <button onClick={() => {handleCopy(jsxCode, `${name} JSX`), setMsgCopied('jsx')}}>{copied !==null && msgCopied==='jsx' ? <div className="copied-alert">✔ {copied?.split(' ')[1]} copiado</div> : '📄 Copiar JSX' }</button>
-            <button onClick={() => {handleCopy(cssCode, `${name} CSS`),setMsgCopied('css')}}>{copied!==null && msgCopied==='css'  ? <div className="copied-alert">✔ {copied?.split(' ')[1]} copiado</div> : '🎨 Copiar CSS'}</button>
-          </div>
+      
+       </motion.div>
+
+
+       <motion.div
+       initial={{ opacity: 0, x: 50 }}
+       animate={{ opacity: 1, x: 0 }}
+       transition={{ duration: 0.2 }}
+        style={{display:'flex',gap:'22px'}}
+        
+       >
+       
+            <button className='button-secondary' onClick={() => {handleCopy(jsxCode, `${name} JSX`), setMsgCopied('jsx')}}>{copied !==null && msgCopied==='jsx' ? <div className="copied-alert">✔ {copied?.split(' ')[1]} copiado</div> : '📄 Copiar JSX' }</button>
+            <button className='button-secondary' onClick={() => {handleCopy(cssCode, `${name} CSS`),setMsgCopied('css')}}>{copied!==null && msgCopied==='css'  ? <div className="copied-alert">✔ {copied?.split(' ')[1]} copiado</div> : '🎨 Copiar CSS'}</button>
+         
+       </motion.div>
 
       </div>
 
@@ -145,6 +164,7 @@ export default function StateRenderer({ states, Component, name, jsxCode, cssCod
       )}
 
       <div className="state-container">
+      <div className='state-div'>
       {Object.entries(localStates).map(([stateName, props]) => {
   const mappedProps = mapProps(props)
   const tagName = Component.name?.toLowerCase?.() || '';
@@ -178,8 +198,11 @@ export default function StateRenderer({ states, Component, name, jsxCode, cssCod
   );
 })}
 
-        
       </div>
+      </div>
+
+
+
       <div className='state-card' style={{width:'fit-content', display:'flex', flexDirection:'column', marginTop:'1rem'}}>
         <h3>➕  Crear estado </h3>
         <h5 style={{ fontSize: '0.85rem', marginBottom: '0.25rem' }}>📝 Nombre</h5>

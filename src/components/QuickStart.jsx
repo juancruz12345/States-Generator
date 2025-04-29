@@ -63,7 +63,7 @@ export default function QuickStart() {
           lineHeight: 1.5,
         }}
       >
-        ⚠️ <strong>Importante:</strong> El componente <strong>no debe importar librerías externas</strong> como <code>axios</code> o <code>framer-motion</code>. Solo se admite React puro.
+        ⚠️ <strong>Importante:</strong> El componente <strong>no debe importar librerías externas</strong>. Solo se admite React puro.
       </div>
 
       <p style={{ marginTop: '1.5rem', fontSize: '0.95rem', opacity: 0.85 }}>
