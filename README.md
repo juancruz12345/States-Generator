@@ -14,7 +14,7 @@ UI Component Lab es una aplicación web que permite a desarrolladores frontend:
 
 🚀 ¿Cómo se usa?
 
-    Subí tu componente .jsx
+   1 SUBI TU COMPONENTE .JSX
 
 El componente debe:
 
@@ -32,15 +32,15 @@ export default MyButton;
 
 export const states = { Default: { label: "Click me", style: { backgroundColor: "blue", color: "white" }, onClick: "(e) => alert('Hola!')" }, Danger: { label: "Eliminar", style: { backgroundColor: "red", color: "white" } } };
 
-    Editá las props desde la interfaz
+ 2EDITÁ LAS PROPS DESDE LA INTERFAZ
 
 Podés editar props como: Tipo de valor | Ejemplo String | "Hola" Número | 42 Boolean | true, false Estilo | { "backgroundColor": "red" } Función | (e) => alert("Click!")
 
-    Agregá, eliminá o cloná estados
+  3 AGREGA O ELIMINA
 
 💡 Cada estado representa un conjunto de props ➕ Podés agregar props nuevas, clonar un estado y renombrarlo.
 
-    Exportá tu trabajo
+ 4 EXPORTA TU TRABAJO
 
 📤 Podés:
 
